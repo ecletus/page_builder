@@ -27,7 +27,7 @@
   <div class="qor-field__edit qor-field__block qor-dragable">
     <ul class="qor-dragable__list">
       {{if .Meta.Config.RemoteDataResource}}
-        {{$listurl := url_for .Meta.Config.RemoteDataResource}}
+        {{$listurl := url_for .Meta.Config.RemoteDataResource.Resource}}
         {{range $value := $current_values}}
           {{$name := index $value 0}}
           <li data-index="{{primary_key_of $name}}" data-value="{{stringify $name}}">
@@ -76,9 +76,9 @@
         data-select-title="{{t "qor_admin.page_builder.containers" "containers"}}"
         data-select-modal="many_sortable"
         {{if .InputId}}data-select-id="#{{.InputId}}"{{end}}
-        data-select-listing-url="{{url_for .Meta.Config.RemoteDataResource}}"
+        data-select-listing-url="{{url_for .Meta.Config.RemoteDataResource.Resource}}"
         data-select-listing-title="{{t "qor_admin.page_builder.library" "library"}}"
-        data-select-creating-url="{{new_resource_path .Meta.Config.RemoteDataResource}}"
+        data-select-creating-url="{{new_resource_path .Meta.Config.RemoteDataResource.Resource}}"
         data-select-creating-title="{{t "qor_admin.page_builder.templates" "templates"}}"
         {{if .Meta.Config.PrimaryField}}data-remote-data-primary-key="{{.Meta.Config.PrimaryField}}"{{end}}>
           {{t (printf "qor_admin.form.add_%v" (singular (meta_label .Meta))) (printf "Add %v" (singular (meta_label .Meta)))}}
@@ -88,7 +88,13 @@
         {{t (printf "qor_admin.form.add_%v" (singular (meta_label .Meta))) (printf "Add %v" (singular (meta_label .Meta)))}}
       </button>
 
-      <select class="qor-field__input" data-toggle="qor.chooser.sortable" data-placeholder="{{t "qor_admin.form.enter_search_term" "Enter Search Term"}}" {{if not (has_update_permission .Meta)}}disabled{{end}} multiple {{if .Meta.Config.RemoteDataResource}}data-ajax--url="{{url_for .Meta.Config.RemoteDataResource}}" data-remote-data="true" {{if .Meta.Config.PrimaryField}}data-remote-data-primary-key="{{.Meta.Config.PrimaryField}}"{{end}}{{end}}>
+      <select class="qor-field__input" data-toggle="qor.chooser.sortable" data-placeholder="{{t "qor_admin.form.enter_search_term" "Enter Search Term"}}"
+        {{if not (has_update_permission .Meta)}}disabled{{end}}
+        multiple
+        {{if .Meta.Config.IsRemote}}
+          data-ajax--url="{{url_for .Meta.Config}}" data-remote-data="true"
+          {{if .Meta.Config.PrimaryField}}data-remote-data-primary-key="{{.Meta.Config.PrimaryField}}"{{end}}
+        {{end}}>
         {{if .Meta.Config.RemoteDataResource}}
           {{range $value := $current_values}}
             <option value="{{primary_key_of $value}}" data-index="{{primary_key_of $value}}" data-value="{{stringify $value}}" selected>{{stringify $value}}</option>

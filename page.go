@@ -117,9 +117,11 @@ func New(config *Config) *admin.Resource {
 			SelectionTemplate:  "metas/form/sortable_widgets.tmpl",
 			SelectMode:         "bottom_sheet",
 			DefaultCreating:    true,
-			RemoteDataResource: config.Containers.WidgetSettingResource,
+			RemoteDataResource: admin.NewDataResource(config.Containers.WidgetSettingResource),
 		}})
 
-	admin.RegisterViewPath("github.com/qor/page_builder/views")
+	qor.IfDev(func() {
+		admin.RegisterViewPath("github.com/qor/page_builder/views")
+	})
 	return resource
 }
