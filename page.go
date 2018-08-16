@@ -6,11 +6,11 @@ import (
 	"errors"
 
 	"github.com/jinzhu/gorm"
-	"github.com/qor/admin"
-	"github.com/qor/qor"
-	"github.com/qor/qor/resource"
-	"github.com/qor/slug"
-	"github.com/qor/widget"
+	"github.com/aghape/admin"
+	"github.com/aghape/aghape"
+	"github.com/aghape/aghape/resource"
+	"github.com/aghape/slug"
+	"github.com/aghape/widget"
 )
 
 type Page struct {
@@ -120,8 +120,5 @@ func New(config *Config) *admin.Resource {
 			RemoteDataResource: admin.NewDataResource(config.Containers.WidgetSettingResource),
 		}})
 
-	qor.IfDev(func() {
-		admin.RegisterViewPath("github.com/qor/page_builder/views")
-	})
 	return resource
 }
