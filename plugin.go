@@ -1,7 +1,7 @@
 package page_builder
 
 import (
-	"github.com/jinzhu/gorm"
+	"github.com/moisespsena-go/aorm"
 )
 
 type Plugin struct {
@@ -9,6 +9,6 @@ type Plugin struct {
 }
 
 
-func (Plugin) SetupSystemDB(db *gorm.DB) interface{} {
+func (Plugin) SetupSystemDB(db *aorm.DB) interface{} {
 	return nil
 }

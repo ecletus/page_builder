@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 
-	"github.com/jinzhu/gorm"
+	"github.com/moisespsena-go/aorm"
 	"github.com/aghape/admin"
 	"github.com/aghape/aghape"
 	"github.com/aghape/aghape/resource"
@@ -14,7 +14,7 @@ import (
 )
 
 type Page struct {
-	gorm.Model
+	aorm.Model
 	Title         string
 	TitleWithSlug slug.Slug
 
@@ -64,7 +64,7 @@ func (containers Containers) Value() (driver.Value, error) {
 	return json.Marshal(containers)
 }
 
-func (page Page) GetContainerRecords(db *gorm.DB) (records []widget.QorWidgetSetting) {
+func (page Page) GetContainerRecords(db *aorm.DB) (records []widget.QorWidgetSetting) {
 	names := []string{}
 	for _, container := range page.Containers {
 		names = append(names, container.Name)
@@ -99,7 +99,7 @@ func New(config *Config) *admin.Resource {
 		Valuer: func(value interface{}, context *qor.Context) interface{} {
 			nameWithIcons := [][]string{}
 			if page, ok := value.(interface {
-				GetContainerRecords(*gorm.DB) []widget.QorWidgetSetting
+				GetContainerRecords(*aorm.DB) []widget.QorWidgetSetting
 			}); ok {
 				for _, container := range page.GetContainerRecords(context.GetDB()) {
 					nameWithIcon := []string{container.Name}
