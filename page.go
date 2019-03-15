@@ -6,11 +6,11 @@ import (
 	"errors"
 
 	"github.com/moisespsena-go/aorm"
-	"github.com/aghape/admin"
-	"github.com/aghape/aghape"
-	"github.com/aghape/aghape/resource"
-	"github.com/aghape/slug"
-	"github.com/aghape/widget"
+	"github.com/ecletus/admin"
+	"github.com/ecletus/ecletus"
+	"github.com/ecletus/ecletus/resource"
+	"github.com/ecletus/slug"
+	"github.com/ecletus/widget"
 )
 
 type Page struct {
