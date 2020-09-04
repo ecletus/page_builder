@@ -1,0 +1,4 @@
+sources:
+  - path: assets
+    prefix: _
+    recursive: true
